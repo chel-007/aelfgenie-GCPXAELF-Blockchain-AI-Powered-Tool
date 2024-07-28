@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+/* 
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */
+
+body {
+  min-height: 100vh; /* 100vh = 100% viewport height */
+  margin: 0; /* Remove default margin for full height */
+}
+
+/* Hide scrollbars for specific containers */
+.no-scroll {
+  overflow: hidden; /* Prevent scrollbars from appearing */
+}
+
+/* If you want to hide scrollbars but allow content overflow for a specific area */
+.scrollable {
+  overflow: hidden; /* Hide scrollbars */
+  position: relative; /* Allow children to overflow */
+}
+
+/* Ensure child elements can overflow */
+.scrollable > * {
+  position: absolute; /* Or relative, depending on your layout */
+}
+
+
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+
+/* styles.css */
+.button {
+  padding: 1rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  width: 150px; /* Set a fixed width if necessary */
+  height: 50px; /* Set a fixed height if necessary */
+}
+
+/* styles.css */
+.dialogflow-text {
+  color: #f0f0f0; /* Soft white color */
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for typing effect */
+  font-size: 1.2rem; /* Adjust the size as needed */
+}
+
+.typing-animation::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  opacity: 1;
+}
+
+@keyframes blink {
+  from, to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+
+
+/* animated paper */
+
+
+/* globals.css or another CSS file */
+
+@keyframes strokeAnimation {
+  0% {
+    stroke-dasharray: 0, 1000;
+  }
+  50% {
+    stroke-dasharray: 250, 1000;
+  }
+  100% {
+    stroke-dasharray: 1000, 1000;
+  }
+}
+
+.paper {
+  stroke-dasharray: 1000; /* Adjust this value based on the path length */
+  stroke-dashoffset: 0;
+  animation: strokeAnimation 5s linear infinite;
+}
+
+   
+
