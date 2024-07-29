@@ -101,37 +101,20 @@ const ExploreChain: React.FC = () => {
     }
   }
 
-  const analyzeTransactions = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/hello");
-
-      const responseData = await response.json();
-
-      const results = responseData.data;
-
-      setTransactions(results);
-      console.log(results);
-      setAnalyzed(true);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-    setLoading(false);
-  };
-
-  const analyzeTransactions2 = async () => {
+  async function analyzeTransactions() {
     setLoading(true);
     try {
       const response = await fetch(`/api/bigquery?analysisType=${analysisType}`);
       const results = await response.json();
-      setTransactions(results);
+      //setTransactions(results);
       console.log(results);
-      setAnalyzed(true);
+      //setAnalyzed(true);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
     setLoading(false);
   };
+
   
   
 
@@ -231,7 +214,7 @@ const ExploreChain: React.FC = () => {
         mx: 'auto',
       }}
     >
-      <Typography variant="h6" component="h2" gutterBottom>
+      <Typography onClick={fetchData} variant="h6" component="h2" gutterBottom>
         Explore AElf Blockchain
       </Typography>
       <FormControl fullWidth sx={{ mb: 2 }}>

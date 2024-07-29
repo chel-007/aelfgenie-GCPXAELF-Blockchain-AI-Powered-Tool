@@ -157,7 +157,7 @@ export default function Home() {
         mb: 2,
         mt: 2,
       }}>
-        <Typography onClick={fetchData} className='font-mono font-bold' variant="h4" component="h1">
+        <Typography className='font-mono font-bold' variant="h4" component="h1">
           (a)elf Genie
         </Typography>
       </Box>
