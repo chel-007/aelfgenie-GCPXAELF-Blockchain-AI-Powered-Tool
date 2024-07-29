@@ -94,7 +94,7 @@ const ExploreChain: React.FC = () => {
   const analyzeTransactions = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/bigquery", {
+      const response = await fetch("https://aelfgenie.vercel.app/api/bigquery", {
         method: "POST", // Corrected property name
         body: JSON.stringify({
             analysisType
