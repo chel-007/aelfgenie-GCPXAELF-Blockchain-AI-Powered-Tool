@@ -57,6 +57,14 @@ async function queryDailyTransactionVolume() {
   return rows;
 }
 
+export function GET(request: Request) {
+  return new Response("Hello from $");
+}
+
+export function POST(request: Request) {
+  return new Response("Hello from $");
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method !== 'POST') {

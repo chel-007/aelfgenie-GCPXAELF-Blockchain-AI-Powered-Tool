@@ -62,42 +62,48 @@ async function queryDailyTransactionVolume() {
   return rows;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export function GET(request: Request) {
+  return new Response("Hello from $");
+}
+
+export function POST(request: Request) {
+  return new Response("Hello from $");
+}
+
+// export async function POST(request: Request) {
 
   
-  console.log('Request received:', req.url, req.query);
+//   console.log('Request received:', request.url, request.body);
 
-  const { analysisType }: {
-    analysisType: string;
-} = req.body;
+//   const { analysisType } = request.body;
 
 
-// const { analysisType } = req.query;
+// // const { analysisType } = req.query;
 
-if (!analysisType) {
-  res.status(400).json({ error: 'Missing analysisType parameter' });
-  return;
-}
+// if (!analysisType) {
+//   res.status(400).json({ error: 'Missing analysisType parameter' });
+//   return;
+// }
 
-  try {
-    let results;
-    switch (analysisType) {
-      case 'largeTransactions':
-        results = await queryLargeTransactions();
-        break;
-      case 'smartContractMethodActivity':
-        results = await querySmartContractMethodActivity();
-        break;
-      case 'dailyTransactionVolume':
-        results = await queryDailyTransactionVolume();
-        break;
-      default:
-        res.status(400).json({ error: 'Invalid analysis type' });
-        return;
-    }
-    res.status(200).json(results);
-  } catch (error: any) {
-    console.error('Error during BigQuery execution:', error);
-    res.status(500).json({ error: error.message });
-  }
-}
+//   try {
+//     let results;
+//     switch (analysisType) {
+//       case 'largeTransactions':
+//         results = await queryLargeTransactions();
+//         break;
+//       case 'smartContractMethodActivity':
+//         results = await querySmartContractMethodActivity();
+//         break;
+//       case 'dailyTransactionVolume':
+//         results = await queryDailyTransactionVolume();
+//         break;
+//       default:
+//         res.status(400).json({ error: 'Invalid analysis type' });
+//         return;
+//     }
+//     res.status(200).json(results);
+//   } catch (error: any) {
+//     console.error('Error during BigQuery execution:', error);
+//     res.status(500).json({ error: error.message });
+//   }
+// }
