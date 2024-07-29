@@ -95,30 +95,26 @@ const ExploreChain: React.FC = () => {
     setLoading(true);
     try {
       const response = await fetch("/api/bigquery", {
-        method: "POST",
+        method: "POST", // Corrected property name
         body: JSON.stringify({
             analysisType
         }),
         headers: {
             "Content-Type": "application/json"
         }
-    }).then(async (res) => {
-        return {
-            status: res.status,
-            data: (await res.json()).data
-        };
-    });
-
-    console.log("finished")
-      const results = await response.data;
+      });
+  
+      const responseData = await response.json();
+      const results = responseData.data;
       setTransactions(results);
-      console.log(results)
+      console.log(results);
       setAnalyzed(true);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
     setLoading(false);
   };
+  
 
   const sortedTransactions = useMemo(() => {
     return Array.isArray(transactions) ? [...transactions].sort((a, b) => {
