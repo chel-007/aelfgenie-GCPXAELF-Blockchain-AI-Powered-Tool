@@ -103,10 +103,10 @@ const ExploreChain: React.FC = () => {
       const response = await fetch(`/api/bigquery?analysisType=${analysisType}`);
       const results = await response.json();
       setTransactions(results);
-      console.log(results);
+      //console.log(results);
       setAnalyzed(true);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      //console.error('Error fetching data:', error);
     }
     setLoading(false);
   };
@@ -117,12 +117,15 @@ const ExploreChain: React.FC = () => {
   const sortedTransactions = useMemo(() => {
     return Array.isArray(transactions) ? [...transactions].sort((a, b) => {
       if (sortingMode === 'size') {
-        return b.size - a.size;
+        return (b.size ?? 0) - (a.size ?? 0);  // Handle undefined size
       } else {
-        return new Date(b.timestamp.value).getTime() - new Date(a.timestamp.value).getTime();
+        const aTime = a.timestamp?.value ? new Date(a.timestamp.value).getTime() : 0;
+        const bTime = b.timestamp?.value ? new Date(b.timestamp.value).getTime() : 0;
+        return bTime - aTime;  // Handle undefined timestamp
       }
     }) : [];
   }, [transactions, sortingMode]);
+  
 
   const filteredTransactions = useMemo(() => {
     if (!selectedDate) return sortedTransactions;
@@ -130,6 +133,7 @@ const ExploreChain: React.FC = () => {
       txn.date?.value && new Date(txn.date.value).toDateString() === selectedDate.toDateString()
     );
   }, [sortedTransactions, selectedDate]);
+  
 
   
   const displayTransactions: Transaction[] = useMemo(() => {
@@ -160,23 +164,23 @@ const ExploreChain: React.FC = () => {
   
     if (analysisType === 'largeTransactions') {
       labels = sortedTransactions.map((txn: Transaction) => shortenTransactionId(txn.transactionId));
-      datasetData = sortedTransactions.map((txn: Transaction) => txn.size);
+      datasetData = sortedTransactions.map((txn: Transaction) => txn.size ?? 0);  // Handle undefined size
       datasetLabel = 'Transaction Size';
     } else if (analysisType === 'dailyTransactionVolume') {
-        const hourlyCounts: Record<string, number> = {};
-        filteredTransactions.forEach(txn => {
-          const hour = txn.hour ?? 'N/A';
-          if (!hourlyCounts[hour]) {
-            hourlyCounts[hour] = 0;
-          }
-          hourlyCounts[hour] += txn.hourly_count ?? 0;
-        });
-        labels = Object.keys(hourlyCounts).sort((a, b) => parseInt(a) - parseInt(b)).map(hour => formatHour(parseInt(hour)));
-        datasetData = Object.values(hourlyCounts);
-        datasetLabel = 'Transaction Volume';
+      const hourlyCounts: Record<string, number> = {};
+      filteredTransactions.forEach(txn => {
+        const hour = txn.hour ?? 'N/A';
+        if (!hourlyCounts[hour]) {
+          hourlyCounts[hour] = 0;
+        }
+        hourlyCounts[hour] += txn.hourly_count ?? 0;  // Handle undefined hourly_count
+      });
+      labels = Object.keys(hourlyCounts).sort((a, b) => parseInt(a) - parseInt(b)).map(hour => formatHour(parseInt(hour)));
+      datasetData = Object.values(hourlyCounts);
+      datasetLabel = 'Transaction Volume';
     } else if (analysisType === 'smartContractMethodActivity') {
       labels = filteredTransactions.map((txn: Transaction) => txn.methodName ?? 'N/A');
-      datasetData = filteredTransactions.map((txn: Transaction) => txn.count ?? 0);
+      datasetData = filteredTransactions.map((txn: Transaction) => txn.count ?? 0);  // Handle undefined count
       datasetLabel = 'Method Activity';
     }
   
@@ -193,6 +197,7 @@ const ExploreChain: React.FC = () => {
       ],
     };
   }, [filteredTransactions, analysisType]);
+  
   
   
 

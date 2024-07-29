@@ -87,7 +87,7 @@ const OptimiseSmartContract = () => {
       const response = await axios.request(options);
       return response.data.openai.generated_text;
     } catch (error) {
-      console.error(error);
+     // console.error(error);
       throw error;
     }
   }

@@ -65,7 +65,7 @@ const formatDialogflowResponse = (response: string): FormattedResponse => {
     });
   }
 
-  console.log(reply);
+  //console.log(reply);
   return { mainResponse, reply };
 };
 
@@ -105,7 +105,7 @@ const DeploySmartContract = () => {
         setTimeout(() => setShowIcons(true), 2000); // Show icons after 5 seconds only if there are carousel items
       }
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       setIsLoading(false);
       setError('Error sending message to Dialogflow');
       toast.error('Error sending message to Dialogflow');
@@ -114,17 +114,17 @@ const DeploySmartContract = () => {
   const handleDetailedReplyFlow = async (reply: string) => {
     setIsLoadingDetailed(true);
     setError(null);
-    console.log(reply);
+    //console.log(reply);
     try {
       const response = await sendMessageToDialogflow(reply, true);
       setDetailedResponse(response); // Set the detailed response
-      console.log(response);
+      //console.log(response);
       if (response) {
         setTimeout(() => setShowIcons(true), 2000); // Show icons after 5 seconds only if there are carousel items
       }
       setIsLoadingDetailed(false);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       setIsLoadingDetailed(false);
       setError('Error sending message to Dialogflow');
       toast.error('Error sending message to Dialogflow');
@@ -141,10 +141,10 @@ const DeploySmartContract = () => {
   }, [activeFlow]);
 
   const handleQuickReply = (reply: string) => {
-    console.log(`Quick reply selected: ${reply}`);
+    //console.log(`Quick reply selected: ${reply}`);
     setActiveFlow(reply);
     if(reply === 'Provide Description') {
-      console.log("i ran");
+      //console.log("i ran");
     } else {
       setDetailedResponse(null);
       handleQuickReplyFlow(reply);
@@ -166,7 +166,7 @@ const DeploySmartContract = () => {
       handleStepClick(nextStep);
     }
     if (activeFlow == 'Provide Description') {
-      console.log("i ran too")
+      //console.log("i ran too")
       const nextStep = steps.indexOf(state.currentStep) - 1;
       handleStepClick(nextStep);
     }

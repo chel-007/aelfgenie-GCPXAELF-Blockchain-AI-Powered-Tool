@@ -89,7 +89,7 @@ const SmartContractGenerator = () => {
     const modifiedDescription = description.startsWith('A ') ? description.slice(2) : description;
     const instruction = `can you create a C# complex aelf blockchain ${modifiedDescription}`;
 
-    console.log(instruction)
+   // console.log(instruction)
 
     const options = {
       method: "POST",
@@ -109,11 +109,11 @@ const SmartContractGenerator = () => {
     try {
       const response = await axios.request(options);
 
-      console.log(response.data.openai.generated_text)
+     // console.log(response.data.openai.generated_text)
 
       return response.data.openai.generated_text;
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       throw error;
     }
   }
@@ -133,7 +133,7 @@ const SmartContractGenerator = () => {
       setIsLoading(false);
     } catch (error) {
 
-      console.log(error)
+     // console.log(error)
       setIsLoading(false);
       setError('Error sending description to Dialogflow');
       toast.error('Error sending description to Dialogflow');

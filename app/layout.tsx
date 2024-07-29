@@ -12,6 +12,8 @@ import { SmartContractProvider } from '../lib/SmartContractContext';
 import { DeployContractProvider } from "@/lib/DeployContractContext";
 import DialogflowLoader from '../lib/DialogflowLoader';
 import { DialogflowProvider } from '../lib/DialogflowContext';
+import ErrorBoundary from './components/ErrorBoundary'; // Adjust the path as needed
+
 
 const inter = Inter({ subsets: ["latin"] });
 const crushed = Crushed({ weight: '400', subsets: ["latin"] });
@@ -37,7 +39,11 @@ export default function RootLayout({
             <DialogflowProvider>
                   <DialogflowLoader>
                   <SmartContractProvider>
-                    <DeployContractProvider><div className="flex-1">{children}</div></DeployContractProvider>
+                    <DeployContractProvider>
+                    <ErrorBoundary>
+                        <div className="flex-1">{children}</div>
+                      </ErrorBoundary>
+                    </DeployContractProvider>
                     </SmartContractProvider>
                   </DialogflowLoader>
                 </DialogflowProvider>
