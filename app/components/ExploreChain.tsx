@@ -91,21 +91,25 @@ const ExploreChain: React.FC = () => {
     }
   };
 
+  async function fetchData() {
+    try {
+      const response = await fetch('/api/hello');
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
   const analyzeTransactions = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/bigquery", {
-        method: "POST", // Corrected property name
-        body: JSON.stringify({
-            analysisType
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-      });
-  
+      const response = await fetch("/api/hello");
+
       const responseData = await response.json();
+
       const results = responseData.data;
+
       setTransactions(results);
       console.log(results);
       setAnalyzed(true);
@@ -114,6 +118,21 @@ const ExploreChain: React.FC = () => {
     }
     setLoading(false);
   };
+
+  const analyzeTransactions2 = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/bigquery?analysisType=${analysisType}`);
+      const results = await response.json();
+      setTransactions(results);
+      console.log(results);
+      setAnalyzed(true);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+    setLoading(false);
+  };
+  
   
 
   const sortedTransactions = useMemo(() => {

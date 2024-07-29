@@ -43,7 +43,7 @@ export default function Home() {
   
     toast.success('Sign in successful!');
   };
-
+  
   async function fetchData() {
     try {
       const response = await fetch('/api/hello');
@@ -53,8 +53,6 @@ export default function Home() {
       console.error('Error fetching data:', error);
     }
   }
-  
-  
 
   const handleLoginFailure = () => toast.error('Sign in failed!');
 
