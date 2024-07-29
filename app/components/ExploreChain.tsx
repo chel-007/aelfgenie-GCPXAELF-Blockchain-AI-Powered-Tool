@@ -94,7 +94,7 @@ const ExploreChain: React.FC = () => {
   const analyzeTransactions = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/.netlify/functions/bigquery?analysisType=${analysisType}`);
+      const response = await fetch(`/api/bigquery?analysisType=${analysisType}`);
       const results = await response.json();
       setTransactions(results);
       console.log(results)
