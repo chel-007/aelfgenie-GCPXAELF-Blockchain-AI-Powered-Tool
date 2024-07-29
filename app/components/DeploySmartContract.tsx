@@ -253,7 +253,7 @@ const DeploySmartContract = () => {
                   <Box key={reply.text} sx={{ display: 'flex', alignItems: 'center', margin: '5px', width: '80%', height: '10%' }}>
                     <TextField
                     inputRef={inputRef}
-                      placeholder="ask me anything about aelf deployment"
+                      placeholder="ask me anything about aelf development"
                       variant="outlined"
                       multiline
                       fullWidth
@@ -321,7 +321,7 @@ const DeploySmartContract = () => {
                         handleQuickReply(reply.text);
                       } else if (reply.text === 'Common Issues') {
                         handleQuickReply(reply.text);
-                        handleDetailedReplyFlow('what are some common issues faced during aelf development. give me a list of three random ones.');
+                        handleDetailedReplyFlow('what are some common issues faced during aelf development. give me a list with three random issues.');
                         
                       }
                       else {

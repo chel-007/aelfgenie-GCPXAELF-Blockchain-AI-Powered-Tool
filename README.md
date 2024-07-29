@@ -18,10 +18,15 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 ## GCP (google cloud platform) & AI Powered Tools Integration
 
 **DialogflowCX(dfl):** AI assistant powering Intent-based conversation through app navigation. reponses are delivered with GCP cloud functions
+
 **Cloud Functions** I have utilized this as my total backend for interaction with DFL Cx and Vertex Search AI Agent. It is further integrated with Big Query & Aelf public test node.
+
 **Vertex Search Agent:** The agent has been trained(connected) to Aelf Deployment & General documentation for Generative responses. I have further trained it on external materials from public sites like github and stackoverflow.
+
 **Big Query:**(***big query made me love sql***). Filled with a Cron scheduled Data Extracted from aelf public test node, big query allows analysis of this and response to frontend.
+
 **Cloud Buckets:** An easy way to pre-store all documentations & data used w/ one-click connection
+
 **OpenAI Model:** The model that aids in generating & optimizing SCs, utilizing a pretrained OpenAI GPT 4.0, with regex expression to process responses and code (back & forth)
 
 ### Open Source Libraries & Tools
