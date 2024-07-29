@@ -1,1 +1,3 @@
-cannot-show, service will crash
+{
+  "dummy": "won't show"
+}
