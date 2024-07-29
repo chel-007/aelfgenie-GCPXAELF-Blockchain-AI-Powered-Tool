@@ -74,7 +74,7 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 - The kind of data we will get is `blockHeight`
 
  ![blockheight Data](images/6.png)
-- A small cloud function to ping everyday, upload data to big query in this format 
+- A small cloud function to ping everyday, upload data to big query in this format  [here](lib/fetchAndUploadTransactions.js)
   
 - Utilizing a GCP managed service key W/ permissions for  app&users to interact with cloud big query as admin
   
