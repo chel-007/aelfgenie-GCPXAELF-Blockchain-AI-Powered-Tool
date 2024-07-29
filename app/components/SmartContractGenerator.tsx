@@ -71,7 +71,7 @@ const SmartContractGenerator = () => {
   
       setGeneratedCode(extractedCode);
 
-      const dflResponse = await sendMessageToDialogflow('succesOptionUI1');
+      const dflResponse = await sendMessageToDialogflow('successOptionUI1');
       setResponseMessage(dflResponse);
 
       setIsLoading(false);

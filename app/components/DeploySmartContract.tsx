@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import {
   Box,
   Breadcrumbs,
@@ -37,7 +37,7 @@ const quickReplies: Record<Step, { text: string; color: string; hoverColor: stri
     { text: 'Deploy via CLI', color: '#484b52', hoverColor: '#d84315', selectedColor: '#0d47a1', isInput: true },
   ],
   Troubleshoot: [
-    { text: 'Common Issues', color: '#7b1fa2', hoverColor: '#6a1b9a', selectedColor: '#0d47a1' },
+    { text: 'Common Issues', color: '#7b1fa2', hoverColor: '#6a1b9a', selectedColor: '#644982' },
     { text: 'Provide Description', color: '#c2185b', hoverColor: '#ad1457', selectedColor: '#0d47a1' },
   ]
 };
@@ -74,6 +74,7 @@ const DeploySmartContract = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [activeFlow, setActiveFlow] = useState<string | null>(null); // State to track active flow
   const [isLoading, setIsLoading] = useState(false);
+  const [IsLoadingDetailed, setIsLoadingDetailed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { setResponseMessage } = useDialogflow();
   const [carouselItems, setCarouselItems] = useState<{ head: string; body: string }[]>([]);
@@ -111,7 +112,7 @@ const DeploySmartContract = () => {
     }
   };
   const handleDetailedReplyFlow = async (reply: string) => {
-    setIsLoading(true);
+    setIsLoadingDetailed(true);
     setError(null);
     console.log(reply);
     try {
@@ -121,10 +122,10 @@ const DeploySmartContract = () => {
       if (response) {
         setTimeout(() => setShowIcons(true), 2000); // Show icons after 5 seconds only if there are carousel items
       }
-      setIsLoading(false);
+      setIsLoadingDetailed(false);
     } catch (error) {
       console.error(error);
-      setIsLoading(false);
+      setIsLoadingDetailed(false);
       setError('Error sending message to Dialogflow');
       toast.error('Error sending message to Dialogflow');
     }
@@ -133,11 +134,21 @@ const DeploySmartContract = () => {
   const { state, dispatch } = context;
 
 
+  useEffect(() => {
+    if (activeFlow === 'Provide Description') {
+      handleCheck();
+    }
+  }, [activeFlow]);
+
   const handleQuickReply = (reply: string) => {
     console.log(`Quick reply selected: ${reply}`);
-    setActiveFlow(reply); // Set the active flow
-    setDetailedResponse(null);
-    handleQuickReplyFlow(reply);
+    setActiveFlow(reply);
+    if(reply === 'Provide Description') {
+      console.log("i ran");
+    } else {
+      setDetailedResponse(null);
+      handleQuickReplyFlow(reply);
+    }
   };
 
   const handleCheck = () => {
@@ -152,6 +163,11 @@ const DeploySmartContract = () => {
     }
     if (activeFlow == 'Setup aelf deploy') {
       const nextStep = steps.indexOf(state.currentStep) + 1;
+      handleStepClick(nextStep);
+    }
+    if (activeFlow == 'Provide Description') {
+      console.log("i ran too")
+      const nextStep = steps.indexOf(state.currentStep) - 1;
       handleStepClick(nextStep);
     }
   };
@@ -304,8 +320,9 @@ const DeploySmartContract = () => {
                         handleDetailedReplyFlow('what is the full workflow to download aelf deploy tool');
                         handleQuickReply(reply.text);
                       } else if (reply.text === 'Common Issues') {
-                        handleDetailedReplyFlow('can you list about 5 common issues faced during aelf development');
                         handleQuickReply(reply.text);
+                        handleDetailedReplyFlow('what are some common issues faced during aelf development. give me a list of three random ones.');
+                        
                       }
                       else {
                         handleQuickReply(reply.text);
@@ -319,6 +336,7 @@ const DeploySmartContract = () => {
 
        </div>
        {isLoading && <Typography variant="body2">Loading...</Typography>}
+       {IsLoadingDetailed && <Typography variant="body2">Loading...</Typography>}
           {detailedResponse && (
       <Box sx={{ mt: 2 }}>
         <TextField
@@ -328,6 +346,7 @@ const DeploySmartContract = () => {
           rows={4}
           value={detailedResponse}
           variant="outlined"
+          style={{ backgroundColor: 'white', borderRadius: '4px', height: '100%' }}
         />
       </Box>
     )}

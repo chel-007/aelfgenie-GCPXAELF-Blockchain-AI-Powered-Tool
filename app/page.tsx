@@ -8,12 +8,14 @@ import { useUser } from '../lib/UserContext';
 import { useRouter } from 'next/navigation';
 import useAuth from '../lib/useAuth';
 import SmartContractGenerator from './components/SmartContractGenerator';
+import OptimizeSmartContract from './components/OptimiseSmartContract';
 import DeploySmartContract from './components/DeploySmartContract';
 import ExploreChain from './components/ExploreChain';
 import { useDialogflow } from '../lib//DialogflowContext';
 import { sendMessageToDialogflow } from '../lib/dialogflowUtils';
 import useTypingEffect from './components/useTypingEffect';
 import "./globals.css";
+import { el } from 'date-fns/locale';
 
 
 export default function Home() {
@@ -23,8 +25,9 @@ export default function Home() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const router = useRouter();
   const [showGenerator, setShowGenerator] = useState(false);
+  const [showOptimize, setShowOptimize] = useState(false);
   const [showDeployment, setShowDeployment] = useState(false);
-  const [showExploration, setShowExploration] = useState(false)
+  const [showExploration, setShowExploration] = useState(false);
   const { setResponseMessage } = useDialogflow();
   const { responseMessage } = useDialogflow();
   const typedResponseMessage = useTypingEffect(responseMessage as string);
@@ -65,6 +68,7 @@ export default function Home() {
   useEffect(() => {
     if (!user) {
       setShowGenerator(false);
+      setShowOptimize(false);
       setShowDeployment(false);
       setShowExploration(false);
       setActiveSection('');
@@ -79,17 +83,25 @@ export default function Home() {
     setActiveSection(section);
     if (section === 'generate') {
       setShowGenerator(true);
+      setShowOptimize(false);
+      setShowDeployment(false);
+      setShowExploration(false);
+    } else if (section === 'optimize') {
+      setShowOptimize(true);
+      setShowGenerator(false);
       setShowDeployment(false);
       setShowExploration(false);
     } else if (section === 'deploy') {
       setShowDeployment(true);
       setShowGenerator(false);
+      setShowOptimize(false);
       setShowExploration(false);
     } 
       else if (section === 'explore') {
       setShowExploration(true);
       setShowDeployment(false);
       setShowGenerator(false);
+      setShowOptimize(false);
     } else {
       setShowGenerator(false);
       setShowDeployment(false);
@@ -222,9 +234,11 @@ export default function Home() {
 
       {showGenerator && <SmartContractGenerator />}
 
+
+      {showOptimize && <OptimizeSmartContract />}
       
 
-        {activeSection === 'optimize' && (
+        {/* {activeSection === 'optimize' && (
           <Box
             sx={{
               bgcolor: 'white',
@@ -244,7 +258,7 @@ export default function Home() {
               Analyze your smart contract code for optimization opportunities and potential issues.
             </Typography>
           </Box>
-        )}
+        )} */}
 
         {showDeployment && <DeploySmartContract />}
 
