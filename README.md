@@ -73,15 +73,14 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 
 - The kind of data we will get is `blockHeight`
 
- ![Predefined features](images/6.png)
+ ![blockheight Data](images/6.png)
 - A small cloud function to ping everyday, upload data to big query in this format 
   
 - Utilizing a GCP managed service key W/ permissions for  app&users to interact with cloud big query as admin
   
 - on the front end, user can make three types of analysis, created SQL queries returning different header structures (advanced filters)
-  
 - Used react chart js to process the data in graph view W/ labels./n
- ![Predefined features](images/7.png)
+ ![react chart js](images/8.png)
 
 <hr>
 
@@ -92,11 +91,12 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 
 
 ### How to Use app
-- describe the kind of smart contract you want to generate (be sure to key in keywords; ex token contract, nft contract etc). this way you can receive advanced feature suggestions.
+- **describe the kind of smart contract** you want to generate (be sure to key in keywords; ex token contract, nft contract etc). this way you can receive advanced feature suggestions.
 - send the app to generate and wait for a few seconds. 
 - get and copy your generated code
+- you can futher ***optimise your generated*** smart contract, or tweak your initial generation with more consice description
 
-- you can futher optimise your generated smart contract, or tweak your initial generation with more consice description
+- 
 
 
 
