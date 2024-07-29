@@ -50,25 +50,38 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 - webhook obtains user description, processes it based on keywords
 - predefined features from a feature database, with random selection of two/n
 
- ![Predefined features](images/2.png)
+ ![Predefined features](images/4.png)
 - response is parsed into `fulfillment response` for DFL
 
 <hr>
+
 2. Guided Generation & Optimization
 - Guided generation for context (*model weight changes for every generation, so essential to guide for efficiency*)
-- parameter fine tuning (low temp, and large generation possible) low temp ensures model adheres to my context
+
+- parameter fine tuning (low temp, and large generation possible) low temp ensures model adheres to my context/n
+  
+![Temp finetuning](images/5.png)
 - the request is sent and parsed w/ conditions for Aelf Standards
+  
 - it must be uniquely aelf `chsarp` smart contracts (*a pretrained model finetuned on csharp can decide to generate solidity*)
+  
 - generation w/ aelf standards n methods are used (`TransferFrom`, `CreateProposalInput` etc)
 
 <hr>
 3. Aelf Test Node Extraction and Big Query
 - I have used aelf public test node for this feature (***https://tdvv-public-node.aelf.io***)
+
 - The kind of data we will get is `blockHeight`
-- A small cloud function to ping everyday, upload data to big query in this format
+
+ ![Predefined features](images/6.png)
+- A small cloud function to ping everyday, upload data to big query in this format 
+  
 - Utilizing a GCP managed service key W/ permissions for  app&users to interact with cloud big query as admin
+  
 - on the front end, user can make three types of analysis, created SQL queries returning different header structures (advanced filters)
-- Used react chart js to process the data in graph view W/ labels.
+  
+- Used react chart js to process the data in graph view W/ labels./n
+ ![Predefined features](images/7.png)
 
 <hr>
 
