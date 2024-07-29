@@ -41,6 +41,7 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 ### Detailed Integration Steps
 1. Dialogflow Cx is a hybrid AI Chat model, it can use predefined intent powered responses / on spur from database
 - a new agent with intents defined(4 main UI features)
+  ![4 main UI intents](images/2.png)
 - trained on phrases that is auto fired by app
 - connection with a webhook for feature suggestion (SC generation)
 - webhook obtains user description, processes it based on keywords
