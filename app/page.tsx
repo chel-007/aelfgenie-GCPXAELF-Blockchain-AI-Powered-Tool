@@ -43,6 +43,17 @@ export default function Home() {
   
     toast.success('Sign in successful!');
   };
+
+  async function fetchData() {
+    try {
+      const response = await fetch('/api/hello');
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+  
   
 
   const handleLoginFailure = () => toast.error('Sign in failed!');
@@ -148,10 +159,11 @@ export default function Home() {
         mb: 2,
         mt: 2,
       }}>
-        <Typography className='font-mono font-bold' variant="h4" component="h1">
+        <Typography onClick={fetchData} className='font-mono font-bold' variant="h4" component="h1">
           (a)elf Genie
         </Typography>
       </Box>
+
 
 
       <Box sx={{ display: 'flex', gap: 2, mb: 4, mt: 4 }}>
@@ -211,6 +223,8 @@ export default function Home() {
     </Box>
 
       {showGenerator && <SmartContractGenerator />}
+
+      
 
         {activeSection === 'optimize' && (
           <Box
