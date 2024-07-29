@@ -44,13 +44,16 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
   
   ![4 main UI intents](images/2.png)
 - trained on phrases that is auto fired by app
-- connection with a webhook for feature suggestion (SC generation)
+- connection with a webhook for feature suggestion (SC generation)/n
+
+ ![Webhook Responses](images/3.png)
 - webhook obtains user description, processes it based on keywords
-- predefined features from a feature database, with random selection of two
+- predefined features from a feature database, with random selection of two/n
+
+ ![Predefined features](images/2.png)
 - response is parsed into `fulfillment response` for DFL
 
-  <hr>
-
+<hr>
 2. Guided Generation & Optimization
 - Guided generation for context (*model weight changes for every generation, so essential to guide for efficiency*)
 - parameter fine tuning (low temp, and large generation possible) low temp ensures model adheres to my context
