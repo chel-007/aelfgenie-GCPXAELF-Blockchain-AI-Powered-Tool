@@ -3,10 +3,6 @@ import { Box, Button, MenuItem, Select, FormControl, InputLabel, CircularProgres
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { formatDistanceToNow } from 'date-fns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
-import { TextField } from '@mui/material';
 import CustomDatePicker from './CustomDatePicker';
 
 
