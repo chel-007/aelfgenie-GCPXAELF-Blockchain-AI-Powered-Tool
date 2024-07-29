@@ -1,5 +1,4 @@
 [build]
-  publish = "out"
   functions = "pages/api"
 
 [[redirects]]
