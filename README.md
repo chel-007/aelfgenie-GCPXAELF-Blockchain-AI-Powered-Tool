@@ -96,7 +96,16 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 - get and copy your generated code
 - you can futher ***optimise your generated*** smart contract, or tweak your initial generation with more consice description
 
-- 
+<hr>
+
+- in deploy, the ***breadcrumbs ui will guide you*** through the steps, you can also jump through
+- click on the buttons to send the request. a green check mark can guide your navigation to the next step
+- in step 3(*deploy*), you can ***interact with Vertex search AI*** using aelf’s documentation as its knowledge base to serve as an intelligent assistant
+<hr>
+
+- in explore, **use the dropdown to set analysis**, to make a query
+- in each you can check through tables, *in paginated rows*, or use the graph chart
+- you can also use filters such as time & date to get more 
 
 
 
