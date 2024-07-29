@@ -40,27 +40,49 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 
 ### Detailed Integration Steps
 1. Dialogflow Cx is a hybrid AI Chat model, it can use predefined intent powered responses / on spur from database
-- a new agent with intents defined(4 main UI features)
+- a new agent with intents defined(4 main UI features)/n
+  
+  ![4 main UI intents](images/2.png)
 - trained on phrases that is auto fired by app
-- connection with a webhook for feature suggestion (SC generation)
+- connection with a webhook for feature suggestion (SC generation)/n
+
+ ![Webhook Responses](images/3.png)
 - webhook obtains user description, processes it based on keywords
-- predefined features from a feature database, with random selection of two
+- predefined features from a feature database, with random selection of two/n
+
+ ![Predefined features](images/4.png)
 - response is parsed into `fulfillment response` for DFL
+
+<hr>
 
 2. Guided Generation & Optimization
 - Guided generation for context (*model weight changes for every generation, so essential to guide for efficiency*)
-- parameter fine tuning (low temp, and large generation possible) low temp ensures model adheres to my context
+
+- parameter fine tuning (low temp, and large generation possible) low temp ensures model adheres to my context/n
+  
+![Temp finetuning](images/5.png)
 - the request is sent and parsed w/ conditions for Aelf Standards
+  
 - it must be uniquely aelf `chsarp` smart contracts (*a pretrained model finetuned on csharp can decide to generate solidity*)
+  
 - generation w/ aelf standards n methods are used (`TransferFrom`, `CreateProposalInput` etc)
 
+<hr>
 3. Aelf Test Node Extraction and Big Query
 - I have used aelf public test node for this feature (***https://tdvv-public-node.aelf.io***)
+
 - The kind of data we will get is `blockHeight`
-- A small cloud function to ping everyday, upload data to big query in this format
+
+ ![blockheight Data](images/6.png)
+- A small cloud function to ping everyday, upload data to big query in this format  [here](lib/fetchAndUploadTransactions.js)
+  
 - Utilizing a GCP managed service key W/ permissions for  app&users to interact with cloud big query as admin
+  
 - on the front end, user can make three types of analysis, created SQL queries returning different header structures (advanced filters)
-- Used react chart js to process the data in graph view W/ labels.
+- Used react chart js to process the data in graph view W/ labels./n
+ ![react chart js](images/8.png)
+
+<hr>
 
 4. Frontend Web app
 - Built a modern UI using Material-UI for interacting with the platform.
@@ -69,11 +91,21 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 
 
 ### How to Use app
-- describe the kind of smart contract you want to generate (be sure to key in keywords; ex token contract, nft contract etc). this way you can receive advanced feature suggestions.
+- **describe the kind of smart contract** you want to generate (be sure to key in keywords; ex token contract, nft contract etc). this way you can receive advanced feature suggestions.
 - send the app to generate and wait for a few seconds. 
 - get and copy your generated code
+- you can futher ***optimise your generated*** smart contract, or tweak your initial generation with more consice description
 
-- you can futher optimise your generated smart contract, or tweak your initial generation with more consice description
+<hr>
+
+- in deploy, the ***breadcrumbs ui will guide you*** through the steps, you can also jump through
+- click on the buttons to send the request. a green check mark can guide your navigation to the next step
+- in step 3(*deploy*), you can ***interact with Vertex search AI*** using aelf’s documentation as its knowledge base to serve as an intelligent assistant
+<hr>
+
+- in explore, **use the dropdown to set analysis**, to make a query
+- in each you can check through tables, *in paginated rows*, or use the graph chart
+- you can also use filters such as time & date to get more 
 
 
 
