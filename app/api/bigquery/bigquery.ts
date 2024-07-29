@@ -1,3 +1,8 @@
+// segment options
+ 
+export const runtime = 'nodejs';
+export const maxDuration = 15;
+
 import { BigQuery } from '@google-cloud/bigquery';
 import { NextApiRequest, NextApiResponse } from 'next';
 
