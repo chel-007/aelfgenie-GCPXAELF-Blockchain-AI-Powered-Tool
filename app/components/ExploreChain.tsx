@@ -94,8 +94,21 @@ const ExploreChain: React.FC = () => {
   const analyzeTransactions = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/bigquery?analysisType=${analysisType}`);
-      const results = await response.json();
+      const response = await fetch("/api/bigquery", {
+        method: "POST",
+        body: JSON.stringify({
+            analysisType
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(async (res) => {
+        return {
+            status: res.status,
+            data: (await res.json()).data
+        };
+    });
+      const results = await response.data;
       setTransactions(results);
       console.log(results)
       setAnalyzed(true);

@@ -1,6 +1,7 @@
 import { BigQuery } from '@google-cloud/bigquery';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+console.log('Loading...');
 
 const credentialsJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
 
@@ -59,7 +60,12 @@ async function queryDailyTransactionVolume() {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log('Request received:', req.url, req.query);
 
-const { analysisType } = req.query;
+  const { analysisType }: {
+    analysisType: string;
+} = req.body;
+
+
+// const { analysisType } = req.query;
 
 if (!analysisType) {
   res.status(400).json({ error: 'Missing analysisType parameter' });
