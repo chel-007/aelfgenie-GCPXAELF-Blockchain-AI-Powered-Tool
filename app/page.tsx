@@ -27,7 +27,7 @@ export default function Home() {
   const [showExploration, setShowExploration] = useState(false)
   const { setResponseMessage } = useDialogflow();
   const { responseMessage } = useDialogflow();
-  const typedResponseMessage = useTypingEffect(responseMessage);
+  const typedResponseMessage = useTypingEffect(responseMessage as string);
 
   const handleProfileClick = () => router.push('/profile');
 
@@ -204,7 +204,7 @@ export default function Home() {
         overflow: 'hidden', // Hide overflow content
         textAlign: 'left', // Align the text to the left
       }}>
-        <Typography variant="body1" component="p" style={{ color: 'black' }}>
+        <Typography variant="body1" component="p" style={{ color: '#f0f0f0' }}>
           {typedResponseMessage ? typedResponseMessage : '...'}
         </Typography>
       </Box>
