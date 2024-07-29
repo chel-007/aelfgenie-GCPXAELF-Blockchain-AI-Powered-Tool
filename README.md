@@ -40,13 +40,16 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 
 ### Detailed Integration Steps
 1. Dialogflow Cx is a hybrid AI Chat model, it can use predefined intent powered responses / on spur from database
-- a new agent with intents defined(4 main UI features)
+- a new agent with intents defined(4 main UI features)/n
+  
   ![4 main UI intents](images/2.png)
 - trained on phrases that is auto fired by app
 - connection with a webhook for feature suggestion (SC generation)
 - webhook obtains user description, processes it based on keywords
 - predefined features from a feature database, with random selection of two
 - response is parsed into `fulfillment response` for DFL
+
+  <hr>
 
 2. Guided Generation & Optimization
 - Guided generation for context (*model weight changes for every generation, so essential to guide for efficiency*)
@@ -55,6 +58,7 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 - it must be uniquely aelf `chsarp` smart contracts (*a pretrained model finetuned on csharp can decide to generate solidity*)
 - generation w/ aelf standards n methods are used (`TransferFrom`, `CreateProposalInput` etc)
 
+<hr>
 3. Aelf Test Node Extraction and Big Query
 - I have used aelf public test node for this feature (***https://tdvv-public-node.aelf.io***)
 - The kind of data we will get is `blockHeight`
@@ -62,6 +66,8 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 - Utilizing a GCP managed service key W/ permissions for  app&users to interact with cloud big query as admin
 - on the front end, user can make three types of analysis, created SQL queries returning different header structures (advanced filters)
 - Used react chart js to process the data in graph view W/ labels.
+
+<hr>
 
 4. Frontend Web app
 - Built a modern UI using Material-UI for interacting with the platform.
