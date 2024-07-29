@@ -108,6 +108,8 @@ const ExploreChain: React.FC = () => {
             data: (await res.json()).data
         };
     });
+
+    console.log("finished")
       const results = await response.data;
       setTransactions(results);
       console.log(results)
