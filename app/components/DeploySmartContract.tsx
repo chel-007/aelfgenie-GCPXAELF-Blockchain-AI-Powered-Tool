@@ -247,8 +247,10 @@ const DeploySmartContract = () => {
             <div style={{ marginTop: '5px', display: 'flex', justifyContent: 'center' }}>
             {quickReplies[state.currentStep as Step].map((reply) => (
                 reply.isLink ? (
-                  <Link key={reply.text} href="/playground" passHref>
-                    <MuiLink sx={{ display: 'flex', alignItems: 'center', mt: 2, color: reply.color }}>
+                  <Link key={reply.text} href="https://playground.test.aelf.dev/" passHref>
+                    <MuiLink sx={{ display: 'flex', alignItems: 'center', mt: 2, color: reply.color }}
+                    target="_blank"
+                    >
                       {reply.text}
                       <ArrowForward sx={{ ml: 1 }} />
                     </MuiLink>
