@@ -37,6 +37,7 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
 * Eden AI
 * React Chart Js (for data visualization n advanced graphs)
 * Monaco Editor (inbuilt code editor)
+* I have provided extra code (specifically Cloud Functions) in the extras dir for reference [here](extras/)
 
 **NB: u can proceed to *how-to-use* here**
 

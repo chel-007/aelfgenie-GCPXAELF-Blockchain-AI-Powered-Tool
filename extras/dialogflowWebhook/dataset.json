@@ -1,0 +1,333 @@
+{
+    "contracts": [
+      {
+        "type": "TokenContract",
+        "features": [
+          {
+            "name": "Burnable",
+            "description": [
+              "Burns 10% of its supply every 10th of a new month",
+              "Burns 5% of its total supply for every 30% increase in token holders",
+              "Burns 1% of tokens during every major network upgrade",
+              "Allows users to burn their own tokens to reduce supply"
+            ]
+          },
+          {
+            "name": "Mintable",
+            "description": [
+              "Allows minting of 1000 new tokens every quarter",
+              "Mints additional tokens proportional to the growth rate of active users",
+              "Enables minting during special events announced by the DAO",
+              "Mints new tokens as rewards for staking"
+            ]
+          },
+          {
+            "name": "Pausable",
+            "description": [
+              "Enables pausing all token transfers during security incidents",
+              "Allows pausing of minting and burning processes",
+              "Admin can pause transfers temporarily during maintenance",
+              "Pauses trading during market volatility"
+            ]
+          },
+          {
+            "name": "Capped",
+            "description": [
+              "Limits the total supply of tokens to a fixed cap",
+              "Implements a dynamic cap based on market demand",
+              "Caps the supply with gradual increases over time",
+              "Maximum supply cap enforced by smart contract rules"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "NFTContract",
+        "features": [
+          {
+            "name": "Transferable",
+            "description": [
+              "Transfers can include a royalty fee for the original creator",
+              "Allows limited transfers per year to increase exclusivity",
+              "Transfers can only be executed by verified accounts",
+              "Supports batch transfers to multiple addresses"
+            ]
+          },
+          {
+            "name": "Auctionable",
+            "description": [
+              "Supports Dutch auctions with descending prices",
+              "Enables blind auctions where bids are hidden until the auction ends",
+              "Includes a feature for instant buyout at a specified price",
+              "Allows timed auctions with automatic bid extensions"
+            ]
+          },
+          {
+            "name": "MetadataUpdatable",
+            "description": [
+              "Allows updating NFT metadata after creation",
+              "Supports adding new attributes to existing NFTs",
+              "Enables metadata changes with owner approval",
+              "Updates metadata during special events or collaborations"
+            ]
+          },
+          {
+            "name": "Rentable",
+            "description": [
+              "Enables renting of NFTs for a specified period",
+              "Supports setting rental prices and terms",
+              "Automates rental payments and returns",
+              "Allows renting with collateral for security"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "DAOContract",
+        "features": [
+          {
+            "name": "Voting",
+            "description": [
+              "Votes are weighted based on the number of tokens held",
+              "Enables quadratic voting to balance influence",
+              "Supports time-locked voting to prevent rapid changes",
+              "Implements ranked-choice voting for multiple options"
+            ]
+          },
+          {
+            "name": "Proposal",
+            "description": [
+              "Allows anonymous proposals to encourage free speech",
+              "Proposals require a minimum of 10% community support to be considered",
+              "Enables funding proposals with specific milestones",
+              "Supports collaborative proposal creation with multiple authors"
+            ]
+          },
+          {
+            "name": "Treasury",
+            "description": [
+              "Manages community funds for project development",
+              "Supports multi-signature approvals for fund disbursement",
+              "Enables budgeting and financial planning",
+              "Tracks all transactions for transparency"
+            ]
+          },
+          {
+            "name": "GovernanceToken",
+            "description": [
+              "Issues governance tokens to DAO members",
+              "Tokens can be used for voting and decision-making",
+              "Allows staking of governance tokens for rewards",
+              "Implements token-based access control for proposals"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "VotingContract",
+        "features": [
+          {
+            "name": "AnonymousVoting",
+            "description": [
+              "Votes are encrypted to ensure privacy",
+              "Anonymous voting with results released after a specified period",
+              "Supports anonymous voting with time-limited public viewing",
+              "Enables anonymous feedback collection after voting"
+            ]
+          },
+          {
+            "name": "DelegatedVoting",
+            "description": [
+              "Allows users to delegate their votes to a representative",
+              "Delegated votes can be retracted and reassigned at any time",
+              "Supports multiple levels of delegation for hierarchical voting",
+              "Implements time-bound delegation for temporary representation"
+            ]
+          },
+          {
+            "name": "RealTimeResults",
+            "description": [
+              "Displays real-time voting results as votes are cast",
+              "Updates vote counts instantly on the blockchain",
+              "Provides visual charts and graphs of voting trends",
+              "Enables real-time analytics and insights"
+            ]
+          },
+          {
+            "name": "MultiChoiceVoting",
+            "description": [
+              "Allows voting on multiple options simultaneously",
+              "Supports ranking of choices in order of preference",
+              "Implements weighted voting for multi-choice questions",
+              "Enables splitting votes across multiple options"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "StakingContract",
+        "features": [
+          {
+            "name": "LockupPeriod",
+            "description": [
+              "Implements a lockup period for staked tokens",
+              "Tokens are locked for a fixed duration to earn rewards",
+              "Supports flexible lockup periods chosen by the user",
+              "Early withdrawal incurs a penalty fee"
+            ]
+          },
+          {
+            "name": "RewardDistribution",
+            "description": [
+              "Distributes staking rewards periodically",
+              "Rewards are calculated based on the amount staked",
+              "Supports variable reward rates for different lockup periods",
+              "Enables bonus rewards for long-term staking"
+            ]
+          },
+          {
+            "name": "AutoCompounding",
+            "description": [
+              "Automatically compounds staking rewards",
+              "Compounds rewards daily to maximize earnings",
+              "Enables users to opt-in for auto-compounding",
+              "Displays compounding history and performance"
+            ]
+          },
+          {
+            "name": "StakeDelegation",
+            "description": [
+              "Allows users to delegate their stakes to validators",
+              "Supports multiple delegation strategies",
+              "Delegated stakes earn a share of validator rewards",
+              "Implements slashing for misbehaving validators"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "MarketplaceContract",
+        "features": [
+          {
+            "name": "Listing",
+            "description": [
+              "Enables users to list items for sale",
+              "Supports setting fixed prices and auction listings",
+              "Includes customizable listing options",
+              "Automatically removes expired listings"
+            ]
+          },
+          {
+            "name": "Escrow",
+            "description": [
+              "Implements escrow for secure transactions",
+              "Funds are held in escrow until conditions are met",
+              "Supports multi-signature escrow approvals",
+              "Enables dispute resolution with escrow mediation"
+            ]
+          },
+          {
+            "name": "ReputationSystem",
+            "description": [
+              "Tracks buyer and seller ratings",
+              "Enables feedback and reviews for transactions",
+              "Implements a reputation-based trust system",
+              "Rewards users for positive reputation"
+            ]
+          },
+          {
+            "name": "FeeManagement",
+            "description": [
+              "Charges transaction fees for marketplace operations",
+              "Supports customizable fee structures",
+              "Enables fee discounts for frequent users",
+              "Tracks and distributes fees to stakeholders"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "GameContract",
+        "features": [
+          {
+            "name": "InGameAssets",
+            "description": [
+              "Enables creation and management of in-game assets",
+              "Supports trading of in-game items between players",
+              "Implements asset rarity and uniqueness",
+              "Allows integration with external marketplaces"
+            ]
+          },
+          {
+            "name": "Leaderboards",
+            "description": [
+              "Tracks player scores and achievements",
+              "Displays global and local leaderboards",
+              "Rewards top players with special prizes",
+              "Updates leaderboards in real-time"
+            ]
+          },
+          {
+            "name": "Tournament",
+            "description": [
+              "Enables hosting of in-game tournaments",
+              "Supports tournament registration and management",
+              "Tracks tournament progress and results",
+              "Rewards winners with in-game or real-world prizes"
+            ]
+          },
+          {
+            "name": "PlayerEconomy",
+            "description": [
+              "Implements an in-game economy with a virtual currency",
+              "Supports buying and selling of goods and services",
+              "Tracks player balances and transactions",
+              "Allows integration with external payment systems"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "StablecoinContract",
+        "features": [
+          {
+            "name": "PegMechanism",
+            "description": [
+              "Maintains a stable value pegged to an external asset",
+              "Implements algorithmic adjustments to maintain peg",
+              "Supports collateral-backed peg mechanisms",
+              "Enables dynamic peg adjustments based on market conditions"
+            ]
+          },
+          {
+            "name": "Redemption",
+            "description": [
+              "Allows users to redeem stablecoins for collateral",
+              "Supports instant redemption at the pegged value",
+              "Implements a queue system for large redemptions",
+              "Enables partial redemptions based on available collateral"
+            ]
+          },
+          {
+            "name": "InterestBearing",
+            "description": [
+              "Offers interest on stablecoin holdings",
+              "Calculates interest based on market rates",
+              "Supports fixed and variable interest rates",
+              "Enables interest compounding for maximum returns"
+            ]
+          },
+          {
+            "name": "FeeManagement",
+            "description": [
+              "Charges transaction fees for stablecoin transfers",
+              "Supports dynamic fee adjustments based on network conditions",
+              "Implements fee rebates for high-volume users",
+              "Tracks and distributes fees to stakeholders"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
