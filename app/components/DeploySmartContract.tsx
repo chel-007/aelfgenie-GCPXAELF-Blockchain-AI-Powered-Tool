@@ -117,7 +117,11 @@ const DeploySmartContract = () => {
     //console.log(reply);
     try {
       const response = await sendMessageToDialogflow(reply, true);
-      setDetailedResponse(response); // Set the detailed response
+      const newResponse = response.startsWith("I'm sorry")
+      ? "Can you be more descriptive in your question about AElf blockchain?"
+      : response;
+
+    setDetailedResponse(newResponse);
       //console.log(response);
       if (response) {
         setTimeout(() => setShowIcons(true), 2000); // Show icons after 5 seconds only if there are carousel items
@@ -299,7 +303,7 @@ const DeploySmartContract = () => {
                         }
                       }}
                     >
-                      Sendo
+                      Send
                     </Button>
                   </Box>
                 ) : (

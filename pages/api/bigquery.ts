@@ -44,7 +44,7 @@ async function queryLargeTransactions() {
     SELECT transactionId, blockHeight, timestamp, size
     FROM \`${datasetId}.${tableId}\`
     ORDER BY size DESC
-    LIMIT 10;
+    LIMIT 50;
   `;
 
   const [rows] = await bigquery.query(query);

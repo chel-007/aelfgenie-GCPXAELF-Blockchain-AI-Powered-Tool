@@ -29,6 +29,9 @@ const OptimiseSmartContract = () => {
   const handleOptimizeSmartContract = async () => {
     setIsLoading(true);
     setError(null);
+    setGeneratedCode(''); // Reset generated code
+    setOptimizationReasons('');
+    
     const combinedInput = `Can you optimise this Aelf Blockchain Smart Contract Code according to Aelf Standards Methods, improve Speed and security:\n${inputValue}`;
   
     try {
@@ -155,7 +158,7 @@ const OptimiseSmartContract = () => {
                 setGeneratedCode('');
                 setInputValue('');
                 setOptimizationReasons(null);
-                setIsOptimized(false); // Reset optimization status
+                setIsOptimized(false);
                 sendMessageToDialogflow('second option');
               }}
               sx={{ mx: 'auto' }}

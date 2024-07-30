@@ -1,10 +1,13 @@
 import React, { useMemo, useState } from 'react';
-import { Box, Button, MenuItem, Select, FormControl, InputLabel, CircularProgress, SelectChangeEvent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Tooltip, IconButton, TableSortLabel, TablePagination, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import {
+  Box, Button, MenuItem, Select, FormControl, InputLabel, CircularProgress, SelectChangeEvent,
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Tooltip,
+  TableSortLabel, TablePagination, ToggleButton, ToggleButtonGroup
+} from '@mui/material';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { formatDistanceToNow } from 'date-fns';
 import CustomDatePicker from './CustomDatePicker';
-
 
 interface Transaction {
   transactionId: string;
@@ -21,24 +24,22 @@ interface Transaction {
 }
 
 interface Props {
-    selectedDate: Date | null;
-    handleDateChange: (date: Date | null) => void;
-  }
+  selectedDate: Date | null;
+  handleDateChange: (date: Date | null) => void;
+}
 
 const shortenTransactionId = (transactionId: string) => {
-    if (!transactionId) return 'N/A';
-    if (transactionId.length <= 10) return transactionId;
-    return `${transactionId.slice(0, 5)}...${transactionId.slice(-5)}`;
-  };
-  
+  if (!transactionId) return 'N/A';
+  if (transactionId.length <= 10) return transactionId;
+  return `${transactionId.slice(0, 5)}...${transactionId.slice(-5)}`;
+};
 
-  const tableHeaders: { [key: string]: string[] } = {
-    largeTransactions: ['Transaction ID', 'Block Height', 'Timestamp', 'Size (bytes)'],
-    dailyTransactionVolume: ['Date', 'Hour', 'Count'],
-    smartContractMethodActivity: ['Method Name', 'Count'],
-    transactionStatus: ['Status', 'Method Name', 'Count'],
-  };
-  
+const tableHeaders: { [key: string]: string[] } = {
+  largeTransactions: ['Transaction ID', 'Block Height', 'Timestamp', 'Size (bytes)'],
+  dailyTransactionVolume: ['Date', 'Hour', 'Count'],
+  smartContractMethodActivity: ['Method Name', 'Count', 'Status'],
+  transactionStatus: ['Status', 'Method Name', 'Count'],
+};
 
 const ExploreChain: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -58,12 +59,11 @@ const ExploreChain: React.FC = () => {
     setPage(0);
     setSelectedDate(null);
   };
-  
+
   const handleAnalysisChange = (event: SelectChangeEvent<string>) => {
     resetAnalysisStates();
     setAnalysisType(event.target.value);
   };
-  
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -87,32 +87,18 @@ const ExploreChain: React.FC = () => {
     }
   };
 
-  // async function fetchData() {
-  //   try {
-  //     const response = await fetch('/api/hello');
-  //     const data = await response.json();
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // }
-
   async function analyzeTransactions() {
     setLoading(true);
     try {
       const response = await fetch(`/api/bigquery?analysisType=${analysisType}`);
       const results = await response.json();
       setTransactions(results);
-      //console.log(results);
       setAnalyzed(true);
     } catch (error) {
       //console.error('Error fetching data:', error);
     }
     setLoading(false);
   };
-
-  
-  
 
   const sortedTransactions = useMemo(() => {
     return Array.isArray(transactions) ? [...transactions].sort((a, b) => {
@@ -125,7 +111,6 @@ const ExploreChain: React.FC = () => {
       }
     }) : [];
   }, [transactions, sortingMode]);
-  
 
   const filteredTransactions = useMemo(() => {
     if (!selectedDate) return sortedTransactions;
@@ -133,16 +118,19 @@ const ExploreChain: React.FC = () => {
       txn.date?.value && new Date(txn.date.value).toDateString() === selectedDate.toDateString()
     );
   }, [sortedTransactions, selectedDate]);
-  
 
-  
   const displayTransactions: Transaction[] = useMemo(() => {
     if (analysisType === 'largeTransactions') {
       return sortedTransactions;
     }
     return filteredTransactions;
-  }, [analysisType, sortedTransactions, filteredTransactions]) as Transaction[];
-  
+  }, [analysisType, sortedTransactions, filteredTransactions]);
+
+  const paginatedTransactions = useMemo(() => {
+    const start = page * rowsPerPage;
+    const end = start + rowsPerPage;
+    return displayTransactions.slice(start, end);
+  }, [displayTransactions, page, rowsPerPage]);
 
   const formatHour = (hour: number): string => {
     if (hour === 0) {
@@ -155,13 +143,12 @@ const ExploreChain: React.FC = () => {
       return `${hour - 12} PM`;
     }
   };
-  
 
   const data = useMemo(() => {
     let labels: string[] = [];
     let datasetData: number[] = [];
     let datasetLabel: string = '';
-  
+
     if (analysisType === 'largeTransactions') {
       labels = sortedTransactions.map((txn: Transaction) => shortenTransactionId(txn.transactionId));
       datasetData = sortedTransactions.map((txn: Transaction) => txn.size ?? 0);  // Handle undefined size
@@ -183,7 +170,7 @@ const ExploreChain: React.FC = () => {
       datasetData = filteredTransactions.map((txn: Transaction) => txn.count ?? 0);  // Handle undefined count
       datasetLabel = 'Method Activity';
     }
-  
+
     return {
       labels,
       datasets: [
@@ -197,9 +184,6 @@ const ExploreChain: React.FC = () => {
       ],
     };
   }, [filteredTransactions, analysisType]);
-  
-  
-  
 
   return (
     <Box
@@ -229,7 +213,7 @@ const ExploreChain: React.FC = () => {
             <MenuItem value="dailyTransactionVolume">Transaction Volume</MenuItem>
             <MenuItem value="smartContractMethodActivity">Smart Contract Activity</MenuItem>
         </Select>
-        </FormControl>
+      </FormControl>
 
       <Box>
         <Button variant="contained" onClick={analyzeTransactions} disabled={loading}>
@@ -280,55 +264,54 @@ const ExploreChain: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-  {displayTransactions.length > 0 ? (
-    displayTransactions.map((transaction, index) => (
-      <TableRow key={index}>
-        {analysisType === 'largeTransactions' && (
-          <>
-            <TableCell>
-              <Tooltip title={transaction.transactionId}>
-                <a href={`https://tdvv-explorer.aelf.io/tx/${transaction.transactionId}`} target="_blank" rel="noopener noreferrer">
-                  <span>{shortenTransactionId(transaction.transactionId)}</span>
-                </a>
-              </Tooltip>
-            </TableCell>
-            <TableCell>{transaction.blockHeight}</TableCell>
-            <TableCell>
-              {transaction.timestamp && transaction.timestamp.value 
-                ? formatDistanceToNow(new Date(transaction.timestamp.value), { addSuffix: true }) 
-                : 'N/A'}
-            </TableCell>
-            <TableCell>{transaction.size}</TableCell>
-          </>
-        )}
-        {analysisType === 'dailyTransactionVolume' && (
-          <>
-            <TableCell>{transaction.date?.value}</TableCell>
-            <TableCell>{transaction.hour ?? 'N/A'}</TableCell>
-            <TableCell>{transaction.hourly_count ?? 'N/A'}</TableCell>
-          </>
-        )}
-        {analysisType === 'smartContractMethodActivity' && (
-          <>
-            <TableCell>{transaction.status ?? 'N/A'}</TableCell>
-            <TableCell>{transaction.methodName ?? 'N/A'}</TableCell>
-            <TableCell>{transaction.count}</TableCell>
-          </>
-        )}
-      </TableRow>
-    ))
-  ) : (
-    <TableRow>
-      <TableCell colSpan={5}>No transactions found.</TableCell>
-    </TableRow>
-  )}
-</TableBody>
-
+                {paginatedTransactions.length > 0 ? (
+                  paginatedTransactions.map((transaction, index) => (
+                    <TableRow key={index}>
+                      {analysisType === 'largeTransactions' && (
+                        <>
+                          <TableCell>
+                            <Tooltip title={transaction.transactionId}>
+                              <a href={`https://tdvv-explorer.aelf.io/tx/${transaction.transactionId}`} target="_blank" rel="noopener noreferrer">
+                                <span>{shortenTransactionId(transaction.transactionId)}</span>
+                              </a>
+                            </Tooltip>
+                          </TableCell>
+                          <TableCell>{transaction.blockHeight}</TableCell>
+                          <TableCell>
+                            {transaction.timestamp && transaction.timestamp.value 
+                              ? formatDistanceToNow(new Date(transaction.timestamp.value), { addSuffix: true }) 
+                              : 'N/A'}
+                          </TableCell>
+                          <TableCell>{transaction.size}</TableCell>
+                        </>
+                      )}
+                      {analysisType === 'dailyTransactionVolume' && (
+                        <>
+                          <TableCell>{transaction.date?.value}</TableCell>
+                          <TableCell>{transaction.hour ?? 'N/A'}</TableCell>
+                          <TableCell>{transaction.hourly_count ?? 'N/A'}</TableCell>
+                        </>
+                      )}
+                      {analysisType === 'smartContractMethodActivity' && (
+                        <>
+                          <TableCell>{transaction.methodName ?? 'N/A'}</TableCell>
+                          <TableCell>{transaction.count}</TableCell>
+                          <TableCell>{transaction.status ?? 'N/A'}</TableCell>
+                        </>
+                      )}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={tableHeaders[analysisType].length}>No transactions found.</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
             </Table>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, 50]}
               component="div"
-              count={transactions.length}
+              count={displayTransactions.length} // Update count here
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}

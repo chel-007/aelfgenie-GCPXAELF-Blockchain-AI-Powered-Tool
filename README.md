@@ -2,6 +2,8 @@
 
 aelfGenie is an AI powered tool that enables developers interested in building on AELF Layer-1 blockchain to build Dapps Faster. The platform integrates various features, including smart contract code generation, optimization, deployment, and transaction data analysis.. The project leverages Google Cloud Platform (GCP) AI tools to enhance functionality and provide a seamless user experience.
 
+#### access app here : https://aelfgenie.vercel.app/
+
 This docs provides a groundlevel information about the tools powering aelfGenie and how you can use it:
 
 
@@ -83,6 +85,8 @@ This docs provides a groundlevel information about the tools powering aelfGenie 
  ![react chart js](images/8.png)
 
 <hr>
+
+ ![vertex search AI](images/9.png)
 
 4. Frontend Web app
 - Built a modern UI using Material-UI for interacting with the platform.

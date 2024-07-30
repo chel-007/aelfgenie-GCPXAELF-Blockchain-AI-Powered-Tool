@@ -246,11 +246,22 @@ const SmartContractGenerator = () => {
                 setFeatures([]);
                 handleGenerateSmartContract();
               }}
+              sx={{ position: 'relative' }} // Ensure relative positioning for the button
             >
-              {isLoading ? <CircularProgress size={24} /> : 'Generate Smart Contract'}
+              {isLoading ? (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    color: 'white', // Set color to white
+                  }}
+                />
+              ) : (
+                'Generate Smart Contract'
+              )}
             </Button>
           </Box>
         )}
+
       </Box>
       {generatedCode && (
         <Box sx={{ bgcolor: 'white', p: 4, borderRadius: 2, textAlign: 'center', boxShadow: 3, width: '60%' }}>
