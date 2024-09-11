@@ -21,17 +21,21 @@ const OptimiseSmartContract = () => {
   const [optimizationReasons, setOptimizationReasons] = useState<string | null>(null);
   const [isOptimized, setIsOptimized] = useState(false);
   const axios = require("axios").default;
+  const [codeError, setCodeError] = useState<string | null>(null);
 
-  const handleCodeChange = (value: any) => {
-    setInputValue(value);
+  const handleCodeChange = (newValue: string | undefined) => {
+    const code = newValue || '';
+    setInputValue(code);
+    validateCode(code);
   };
+  
 
   const handleOptimizeSmartContract = async () => {
     setIsLoading(true);
     setError(null);
-    setGeneratedCode(''); // Reset generated code
+    setGeneratedCode('');
     setOptimizationReasons('');
-    
+
     const combinedInput = `Can you optimise this Aelf Blockchain Smart Contract Code according to Aelf Standards Methods, improve Speed and security:\n${inputValue}`;
   
     try {
@@ -75,7 +79,7 @@ const OptimiseSmartContract = () => {
       method: "POST",
       url: "https://api.edenai.run/v2/text/code_generation",
       headers: {
-        authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZDQzNjJjMTItZmUyMi00Y2RmLTgzYjUtY2FmOGY4NDFlZmEyIiwidHlwZSI6ImFwaV90b2tlbiJ9.8k0fDgF28RvmqweFMpdU_EQb9e_Xg7_loGdacacjcAE",
+        authorization: `Bearer ${process.env.EDENAI_BEARER_TOKEN}`,
       },
       data: {
         providers: "openai",
@@ -94,6 +98,18 @@ const OptimiseSmartContract = () => {
       throw error;
     }
   }
+
+
+  const validateCode = (code: string) => {
+    const csharpPattern = /using\s+System|namespace\s+\w+|class\s+\w+/;
+    const protobufPattern = /syntax\s*=\s*"proto3";|message\s+\w+/;
+
+    if (csharpPattern.test(code) || protobufPattern.test(code)) {
+      setCodeError(null);
+    } else {
+      setCodeError('Only C# and Google Protobuf code are allowed.');
+    }
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', maxWidth: '1000px', mt: 2, gap: 5 }}>
@@ -121,6 +137,11 @@ const OptimiseSmartContract = () => {
             scrollBeyondLastLine: false,
           }}
         />
+        {codeError && (
+          <Typography color="error" variant="body2">
+            {codeError}
+          </Typography>
+        )}
         {error && (
           <Typography color="error" variant="body2">
             {error}
@@ -132,7 +153,7 @@ const OptimiseSmartContract = () => {
             color="primary"
             onClick={handleOptimizeSmartContract}
             sx={{ mt: 2 }}
-            disabled={isLoading}
+            disabled={isLoading|| !inputValue || codeError !== null}
           >
             {isLoading ? <CircularProgress size={24} /> : 'Optimize Smart Contract'}
           </Button>
